@@ -1,18 +1,20 @@
+
 pipeline {
     agent any
 
     stages {
-        stage('Hello') {
+
+        stage('Installation du projet') {
             steps {
-                echo 'Hello depuis un pipeline déclaratif'
+                bat 'python -m pip install -r requirements.txt'
             }
         }
 
-        stage('Infos environnement') {
+        stage('Lancement des tests') {
             steps {
-                echo "Nom du noeud Jenkins: ${env.NODE_NAME}"
-                echo "Workspace: ${env.WORKSPACE}"
+                bat 'python -m pytest tests/ -v'
             }
         }
+
     }
 }
